@@ -14,9 +14,10 @@
         echo ' [x] Received ', $msg->body, "\n";
         sleep(substr_count($msg->body, '.'));
         echo " [x] Done\n";
+        $msg->ack();
     };
       
-    $channel->basic_consume('hello', '', false, true, false, false, $callback);
+    $channel->basic_consume('hello', '', false, false, false, false, $callback);
     
     while ($channel->is_open()) {
         $channel->wait();
